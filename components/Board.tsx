@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Square from "./Square";
+
+type Player = "X" | "O" | "BOTH" | null;
 
 const Board = () => {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [currentPlayer, setCurrentPlayer] = useState<"X" | "O">(
     Math.round(Math.random() * 1) === 1 ? "X" : "O",
   );
-  const [winner, setWinner] = useState(null);
+  const [winner, setWinner] = useState<Player>(null);
 
   const setSquareValue = (index: number) => {
     const newData = squares.map((value, i) => {
@@ -25,9 +27,47 @@ const Board = () => {
     setCurrentPlayer(Math.round(Math.random() * 1) === 1 ? "X" : "O");
   };
 
+  const determineWinner = (squares: Player[]) => {
+    const winningOptions = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+    for (let i = 0; i < winningOptions.length; i++) {
+      const [a, b, c] = winningOptions[i];
+      if (
+        squares[a] &&
+        squares[a] === squares[b] &&
+        squares[a] === squares[c]
+      ) {
+        return squares[a];
+      }
+    }
+    return null;
+  };
+
+  useEffect(() => {
+    const w = determineWinner(squares);
+    if (w) {
+      setWinner(w);
+    }
+    if (!w && !squares.filter((square) => !square).length) {
+      setWinner("BOTH");
+    }
+  }, [squares]);
+
   return (
     <div>
-      <p>Hey {currentPlayer}, it is your turn.</p>
+      { !winner && <p>Hey {currentPlayer}, it is your turn.</p>}
+      {winner && winner !== "BOTH" && <p>Congratulations {winner}</p>}
+      {winner && winner === "BOTH" && (
+        <p>There was a draw, reset to play again.</p>
+      )}
       <div className="grid">
         {Array(9)
           .fill(null)

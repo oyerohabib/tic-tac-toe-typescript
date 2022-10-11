@@ -1,6 +1,6 @@
 import React from "react";
 
-type Player = "X" | "O" | null;
+type Player = "X" | "O" | "BOTH" | null;
 
 interface Props {
   value: Player;
