@@ -53,6 +53,10 @@ const Board = () => {
 
   useEffect(() => {
     const w = determineWinner(squares);
+    console.log("squares", squares);
+    console.log("filter", !squares.filter((square) => !square).length);
+    
+    
     if (w) {
       setWinner(w);
     }
