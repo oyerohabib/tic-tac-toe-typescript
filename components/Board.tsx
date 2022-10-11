@@ -53,10 +53,7 @@ const Board = () => {
 
   useEffect(() => {
     const w = determineWinner(squares);
-    console.log("squares", squares);
-    console.log("filter", !squares.filter((square) => !square).length);
-    
-    
+
     if (w) {
       setWinner(w);
     }
@@ -67,11 +64,9 @@ const Board = () => {
 
   return (
     <div className="board-container">
-      { !winner && <p>Hey {currentPlayer}, it is your turn.</p>}
+      {!winner && <p>Hey {currentPlayer}, it is your turn.</p>}
       {winner && winner !== "BOTH" && <p>Congratulations {winner}</p>}
-      {winner && winner === "BOTH" && (
-        <p>That is a draw.</p>
-      )}
+      {winner && winner === "BOTH" && <p>That is a draw.</p>}
       <div className="grid">
         {Array(9)
           .fill(null)
