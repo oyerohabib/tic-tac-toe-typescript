@@ -5,10 +5,13 @@ type Player = "X" | "O" | "BOTH" | null;
 
 const Board = () => {
   const [squares, setSquares] = useState(Array(9).fill(null));
-  const [currentPlayer, setCurrentPlayer] = useState<"X" | "O">(
-    Math.round(Math.random() * 1) === 1 ? "X" : "O",
-  );
+  const [currentPlayer, setCurrentPlayer] = useState<"X" | "O">();
   const [winner, setWinner] = useState<Player>(null);
+
+  useEffect(() => {
+    setCurrentPlayer(Math.round(Math.random() * 1) === 1 ? "X" : "O");
+  }, [])
+  
 
   const setSquareValue = (index: number) => {
     const newData = squares.map((value, i) => {
