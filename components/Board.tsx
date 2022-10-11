@@ -62,11 +62,11 @@ const Board = () => {
   }, [squares]);
 
   return (
-    <div>
+    <div className="board-container">
       { !winner && <p>Hey {currentPlayer}, it is your turn.</p>}
       {winner && winner !== "BOTH" && <p>Congratulations {winner}</p>}
       {winner && winner === "BOTH" && (
-        <p>There was a draw, reset to play again.</p>
+        <p>That is a draw.</p>
       )}
       <div className="grid">
         {Array(9)

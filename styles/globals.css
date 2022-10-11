@@ -23,6 +23,13 @@
 
 p {
   font-size: 2rem;
+  text-align: center;
+}
+
+.board-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 button.reset {
