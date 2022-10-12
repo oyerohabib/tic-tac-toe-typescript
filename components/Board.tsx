@@ -10,8 +10,7 @@ const Board = () => {
 
   useEffect(() => {
     setCurrentPlayer(Math.round(Math.random() * 1) === 1 ? "X" : "O");
-  }, [])
-  
+  }, []);
 
   const setSquareValue = (index: number) => {
     const newData = squares.map((value, i) => {
@@ -60,7 +59,8 @@ const Board = () => {
     if (w) {
       setWinner(w);
     }
-    if (!w && !squares.filter((square) => !square).length) {
+    if (!w && !squares.includes(null)) {
+      // !squares.filter((square) => !square).length, alternative for !squares.includes(null)
       setWinner("BOTH");
     }
   }, [squares]);
